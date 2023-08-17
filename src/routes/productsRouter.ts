@@ -25,8 +25,9 @@ productsRouter.get("/products", async (req, res) => {
 
     const client = await getClient();
     const cursor = client.db().collection<Product>("products").find(query);
-    const results = await cursor.toArray();
-    res.status(200).json(results);
+    if (limit) cursor.limit(limit);
+    const products: Product[] = await cursor.toArray();
+    res.status(200).json(products);
   } catch (error) {
     errorResponse(error, res);
   }
