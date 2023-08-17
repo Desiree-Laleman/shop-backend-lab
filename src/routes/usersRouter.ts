@@ -19,7 +19,7 @@ usersRouter.get("/users/:id", async (req, res) => {
     if (result) {
       res.status(200).json(result);
     } else {
-      res.status(404).json({ message: `Item with id:${_id} not found` });
+      res.status(404).json({ message: `User with id:${_id} not found` });
     }
   } catch (error) {
     errorResponse(error, res);
@@ -46,10 +46,10 @@ usersRouter.put("/users/:id", async (req, res) => {
       .db()
       .collection<User>("users")
       .replaceOne({ _id }, updatedUser);
-    if (result.matchedCount) {
+    if (result.modifiedCount) {
       res.status(200).json(updatedUser);
     } else {
-      res.status(404).json({ message: `Item with id:${_id} not found` });
+      res.status(404).json({ message: `User with id:${_id} not found` });
     }
   } catch (error) {
     errorResponse(error, res);
@@ -67,7 +67,7 @@ usersRouter.delete("/users/:id", async (req, res) => {
     if (result.deletedCount) {
       res.sendStatus(204);
     } else {
-      res.status(404).json({ message: `Item with id: ${_id} not found` });
+      res.status(404).json({ message: `User with id: ${_id} not found` });
     }
   } catch (error) {
     errorResponse(error, res);
